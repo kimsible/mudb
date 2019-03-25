@@ -1,0 +1,31 @@
+{
+  "name": "mudb",
+  "version": "1.0.0",
+  "description": "Small JSON database",
+  "main": "src/",
+  "scripts": {
+    "test": "ava --color"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimsible/mudb.git"
+  },
+  "keywords": [
+    "database",
+    "json",
+    "less"
+  ],
+  "author": "kimsible",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kimsible/mudb/issues"
+  },
+  "homepage": "https://github.com/kimsible/mudb#readme",
+  "devDependencies": {
+    "ava": "^1.4.1",
+    "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "lodash.ismatch": "^4.4.0"
+  }
+}
