@@ -1,19 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-function xargs-r() {
-  # Portable version of "xargs -r". The -r flag is a GNU extension that
-  # prevents xargs from running if there are no input files.
-  if IFS= read -r -d $'\n' path; then
-    { echo "$path"; cat; } | xargs $@
-  fi
-}
-function exists() {
-  if [ -f $1 ]; then
-    echo $1
-  fi
-}
-git diff --name-only --cached --relative | grep '\.js$' | sed 's/[^[:alnum:]]/\\&/g' | sed 's/js/test\.js/g' | exists | xargs-r -E '' -t ./node_modules/.bin/ava
-if [[ $? -ne 0 ]]; then
-  echo 'AVA unit tests errors were detected. Aborting commit.'
-  exit 1
-fi
+const { basename, extname } = require('path')
+const { existsSync } = require('fs')
+const { exec } = require('child_process')
+
+exec(`git diff --name-only --cached --relative`, (err, stdout) => {
+  if (err) {
+    process.stdout.write(err + '\n')
+    process.exit(1)
+  }
+
+  const files = stdout.split('\n').reduce((acc, file) => {
+    const name = basename(file, extname(file)).replace('.test', '') + '.test.js'
+    if (!existsSync(name) || acc.find(i => i === name)) return acc
+    return [...acc, name]
+  }, [])
+
+  if (files.length > 0) {
+    exec(`./node_modules/.bin/ava --color ${files.join(' ')}`, (err, stdout) => {
+      if (err) {
+        if (!stdout.match(/✖ Couldn't find any (matching tests|files to test)/)) {
+          if (stdout) {
+            process.stdout.write(stdout + '\n')
+          }
+          process.stdout.write('AVA unit tests errors were detected. Aborting commit.' + '\n')
+          process.exit(1)
+        }
+      }
+    })
+  }
+})
