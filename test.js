@@ -4,7 +4,7 @@ import test from 'ava'
 import mudb from '.'
 
 const items = ['item-1', 'item-2', 'item-3']
-const path = './test.json'
+const path = '/tmp/test.json'
 
 test.serial('put item', async t => {
   const db = await mudb.open(path)

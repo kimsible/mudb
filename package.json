@@ -4,7 +4,7 @@
   "description": "Small JSON database",
   "main": "src/",
   "scripts": {
-    "test": "ava --color"
+    "test": "ava -v test.js"
   },
   "repository": {
     "type": "git",
