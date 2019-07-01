@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function xargs-r() {
+  # Portable version of "xargs -r". The -r flag is a GNU extension that
+  # prevents xargs from running if there are no input files.
+  if IFS= read -r -d $'\n' path; then
+    { echo "$path"; cat; } | xargs $@
+  fi
+}
+function exists() {
+  if [ -f $1 ]; then
+    echo $1
+  fi
+}
+git diff --name-only --cached --relative | grep '\.js$' | sed 's/[^[:alnum:]]/\\&/g' | sed 's/js/test\.js/g' | exists | xargs-r -E '' -t ./node_modules/.bin/ava
+if [[ $? -ne 0 ]]; then
+  echo 'AVA unit tests errors were detected. Aborting commit.'
+  exit 1
+fi

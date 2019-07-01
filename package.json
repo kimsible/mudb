@@ -23,6 +23,7 @@
   "homepage": "https://github.com/kimsible/mudb#readme",
   "devDependencies": {
     "ava": "^2.1.0",
+    "git-hooks": "^1.1.10",
     "standard": "^12.0.1"
   },
   "dependencies": {
