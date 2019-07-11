@@ -12,7 +12,7 @@ module.exports = class Mapper {
   }
 
   get (query) {
-    return this.data.reduce((acc, item, index) => {
+    return this.data.reduce((acc, item) => {
       if (isMatch(item, query)) {
         return [...acc, item]
       } else {
