@@ -21,7 +21,7 @@ test.serial('delete item', async t => {
 })
 
 test.serial('put items', async t => {
-  const db = await mudb.open(path)
+  const db = mudb.openSync(path)
   await db.put(items[0]).put(items[1]).put(items[2]).save()
   const newDb = await mudb.open(path)
   t.deepEqual(newDb.size, 3)
@@ -29,7 +29,7 @@ test.serial('put items', async t => {
 })
 
 test.serial('delete items', async t => {
-  const db = await mudb.open(path)
+  const db = mudb.openSync(path)
   await db.del(items[0]).del(items[1]).del(items[2]).save()
   const newDb = await mudb.open(path)
   t.deepEqual(newDb.size, 0)
