@@ -1,7 +1,17 @@
 'use strict'
 
 const isMatchWith = require('lodash.ismatchwith')
-const compare = (src, str) => src.match(str)
+const compare = (src, obj) => {
+  if (typeof obj === 'function') {
+    return obj(src)
+  }
+  if (['boolean', 'number', 'string'].includes(typeof obj)) {
+    return obj === src
+  }
+  if (obj instanceof RegExp) {
+    return obj.test(src)
+  }
+}
 
 module.exports = class Mapper {
   constructor (data) {

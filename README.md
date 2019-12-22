@@ -15,7 +15,7 @@ async () => {
 ```
 
 ### openSync()
-Use it only before starting a server or outside of a request handler.
+Use only before starting a server or outside of a request handler.
 ```javascript
 const mudb = require('mudb')
 
@@ -32,14 +32,22 @@ await db.put({_id: 'EIndiizUIU828', title: 'A small json database', ... }).save(
 ```
 
 - #### get()
-Single query
+Single filter
 ```javascript
 db.get({_id: 'EIdiizUIU828'}) // [{_id: 'EIndiizUIU828', title: 'A small json database', ... }]
 ```
-Multiple queries with regexp
 
+Filter type can be a function, a string, a number or a regexp
 ```javascript
-db.get({title: /small json database/}, {description: /small json database/}) // [{_id: 'EIndiizUIU828', title: 'A small json database', ... }, {...}, ...]
+db.get({rate: rate => rate < 5}) // return all items with a rate lower than 5
+db.get({title: /toto/}) // return all items with a title containing "toto"
+db.get({active: true}) // return all items where active is true
+db.get({rate: 4.5}) // return all items where rate is 4.5
+```
+
+Multiple filters
+```javascript
+db.get({title: /toto/}, {rate: 4.5}, {...}, ...)
 ```
 
 - #### del()

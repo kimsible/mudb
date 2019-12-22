@@ -4,16 +4,18 @@ import test from 'ava'
 import Mapper from './Mapper'
 
 const data = [
-  { name: 'marvin', body: 'lorem ipsum' },
-  { name: 'toto', body: 'lorem ipsum' }
+  { name: 'marvin', body: 'lorem ipsum', date: 10000 },
+  { name: 'toto', body: 'lorem ipsum', date: 27000, active: true }
 ]
 
 const mapper = data => new Mapper(data)
 
 test('size', size, ['a', 'b'], 2)
-test.serial('get', get, { body: 'lorem ipsum' }, [{ name: 'marvin', body: 'lorem ipsum' }, { name: 'toto', body: 'lorem ipsum' }])
-test.serial('get-regexp', get, { name: /^marvi/ }, [{ name: 'marvin', body: 'lorem ipsum' }])
-test.serial('get-multiple', getMultiple, { name: /^marvi/ }, { name: 'toto' }, [{ name: 'marvin', body: 'lorem ipsum' }, { name: 'toto', body: 'lorem ipsum' }])
+test.serial('get-string', get, { body: 'lorem ipsum' }, data)
+test.serial('get-regexp', get, { name: /^marvi/ }, [data[0]])
+test.serial('get-boolean', get, { active: true }, [data[1]])
+test.serial('get-function', get, { date: date => date < 20000 }, [data[0]])
+test.serial('get-multiple', getMultiple, { name: /^marvi/ }, { name: 'toto' }, data)
 test.serial('put', put, { key: 'item', body: 'lorem ipsum' })
 test.serial('del', del, { key: 'item' })
 
