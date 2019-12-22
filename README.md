@@ -32,8 +32,14 @@ await db.put({_id: 'EIndiizUIU828', title: 'A small json database', ... }).save(
 ```
 
 - #### get()
+Single query
 ```javascript
 db.get({_id: 'EIdiizUIU828'}) // [{_id: 'EIndiizUIU828', title: 'A small json database', ... }]
+```
+Multiple queries with regexp
+
+```javascript
+db.get({title: /small json database/}, {description: /small json database/}) // [{_id: 'EIndiizUIU828', title: 'A small json database', ... }, {...}, ...]
 ```
 
 - #### del()
@@ -46,9 +52,9 @@ await db.del({_id: 'EIdiizUIU828'}).save()
 db.size // 1
 ```
 
-- #### data
+- #### dump
 ```javascript
-db.data // ['item1', { _id: 'item2'}, ['item3'], ...]
+db.dump // ['item1', { _id: 'item2'}, ['item3'], ...]
 ```
 
 
