@@ -24,7 +24,7 @@
   "devDependencies": {
     "ava": "^2.4.0",
     "git-hooks": "^1.1.10",
-    "standard": "^13.1.0"
+    "standard": "^14.3.1"
   },
   "dependencies": {
     "lodash.ismatch": "^4.4.0"
