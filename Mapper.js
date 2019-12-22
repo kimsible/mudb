@@ -26,13 +26,15 @@ module.exports = class Mapper {
     return this.data.length
   }
 
-  get (...queries) {
-    return this.data.reduce((acc, item) => {
-      const matched = queries.filter(query => isMatchWith(item, query, compare))
+  get (...filters) {
+    const keys = Array.isArray(filters[0]) && filters.shift()
+    return this.data.reduce((accData, item) => {
+      const matched = filters.filter(filter => isMatchWith(item, filter, compare))
       if (matched.length > 0) {
-        return [...acc, item]
+        const reducedItem = keys && keys.reduce((accItem, key) => ({ ...accItem, [key]: item[key] }), {})
+        return [...accData, reducedItem || item]
       } else {
-        return acc
+        return accData
       }
     }, [])
   }
@@ -42,8 +44,8 @@ module.exports = class Mapper {
     return this
   }
 
-  del (query) {
-    const index = this.data.findIndex(item => isMatchWith(item, query, compare))
+  del (filter) {
+    const index = this.data.findIndex(item => isMatchWith(item, filter, compare))
     if (index > -1) {
       this.data.splice(index, 1)
     }

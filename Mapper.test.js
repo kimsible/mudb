@@ -16,6 +16,7 @@ test.serial('get-regexp', get, { name: /^marvi/ }, [data[0]])
 test.serial('get-boolean', get, { active: true }, [data[1]])
 test.serial('get-function', get, { date: date => date < 20000 }, [data[0]])
 test.serial('get-multiple', getMultiple, { name: /^marvi/ }, { name: 'toto' }, data)
+test.serial('get-filterKeys', getMultiple, ['date', 'body'], { name: /^marvi/ }, [{ body: 'lorem ipsum', date: 10000 }])
 test.serial('put', put, { key: 'item', body: 'lorem ipsum' })
 test.serial('del', del, { key: 'item' })
 

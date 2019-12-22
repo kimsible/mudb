@@ -50,6 +50,11 @@ Multiple filters
 db.get({title: /toto/}, {rate: 4.5}, {...}, ...)
 ```
 
+Select specific keys
+```javascript
+db.get(['active', 'rate'], {title: /toto/}, {...}, ...) // [{active: true, rate: 5}, ...]
+```
+
 - #### del()
 ```javascript
 await db.del({_id: 'EIdiizUIU828'}).save()
