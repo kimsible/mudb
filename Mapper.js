@@ -1,6 +1,6 @@
 'use strict'
 
-const isMatch = require('lodash.ismatch')
+const isMatchWith = require('lodash.ismatchwith')
 
 module.exports = class Mapper {
   constructor (data) {
@@ -13,7 +13,7 @@ module.exports = class Mapper {
 
   get (query) {
     return this.data.reduce((acc, item) => {
-      if (isMatch(item, query)) {
+      if (isMatchWith(item, query, (src, str) => src.match(str))) {
         return [...acc, item]
       } else {
         return acc
@@ -27,7 +27,7 @@ module.exports = class Mapper {
   }
 
   del (query) {
-    const index = this.data.findIndex(item => isMatch(item, query))
+    const index = this.data.findIndex(item => isMatchWith(item, query, (src, str) => src.match(str)))
     if (index > -1) {
       this.data.splice(index, 1)
     }

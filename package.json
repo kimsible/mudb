@@ -27,6 +27,7 @@
     "standard": "^14.3.1"
   },
   "dependencies": {
-    "lodash.ismatch": "^4.4.0"
+    "lodash.ismatch": "^4.4.0",
+    "lodash.ismatchwith": "^4.4.0"
   }
 }
