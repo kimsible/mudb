@@ -14,6 +14,18 @@ async () => {
 }
 ```
 
+### openSync()
+Use it only before starting a server or outside of a request handler.
+```javascript
+const mudb = require('mudb')
+
+const db =  mudb.openSync('path/to/json')
+
+async () => {
+  ...
+}
+```
+
 - #### put()
 ```javascript
 await db.put({_id: 'EIndiizUIU828', title: 'A small json database', ... }).save()
