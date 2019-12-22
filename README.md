@@ -37,7 +37,7 @@ Single filter
 db.get({_id: 'EIdiizUIU828'}) // [{_id: 'EIndiizUIU828', title: 'A small json database', ... }]
 ```
 
-Filter type can be a function, a string, a number or a regexp
+Filter type can be a function, a string, a number, a boolean or a regexp
 ```javascript
 db.get({rate: rate => rate < 5}) // return all items with a rate lower than 5
 db.get({title: /toto/}) // return all items with a title containing "toto"
@@ -53,6 +53,19 @@ db.get({title: /toto/}, {rate: 4.5}, {...}, ...)
 Select specific keys
 ```javascript
 db.get(['active', 'rate'], {title: /toto/}, {...}, ...) // [{active: true, rate: 5}, ...]
+```
+
+Sort result
+```javascript
+db.get(...).sort((a, b) => a.date - b.date) // by oldest date
+db.get(...).sort((a, b) => b.date - a.date) // by newest date
+db.get(...).reverse() // by newest added
+```
+
+Limit result
+```javascript
+db.get(...).filter((_, index) => index < 15) // limit to 15 items
+db.get(...).reverse().filter((_, index) => index < 10) // by newest added and limit to 10 items
 ```
 
 - #### del()
