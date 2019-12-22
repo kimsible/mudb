@@ -8,6 +8,10 @@ module.exports = class Mapper {
     this.data = data
   }
 
+  get dump () {
+    return this.data
+  }
+
   get size () {
     return this.data.length
   }
